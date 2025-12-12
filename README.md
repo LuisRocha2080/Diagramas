@@ -12,6 +12,7 @@ Este repositorio contiene la documentación técnica completa de los 4 funcionam
 2. **📊 Sistema de Gestión de Historiales Médicos** - Control de información crítica con trazabilidad
 3. **👥 Sistema de Gestión de Roles y Permisos** - Control de accesos multinivel
 4. **💰 Sistema de Gestión de Inventario y Ventas** - Proceso financiero con múltiples validaciones
+5. **🎯 Sistema de Gestión de Promociones y Marketing** - Campañas automáticas y análisis de efectividad
 
 ---
 
@@ -498,9 +499,263 @@ graph TB
 
 ---
 
+## 🎯 **GUÍA 5: SISTEMA DE GESTIÓN DE PROMOCIONES Y MARKETING**
+
+### **🎭 ACTORES DEL SISTEMA:**
+- **👨‍💼 Gerente de Marketing** - Creador de campañas y estrategias
+- **👨‍💼 Administrador** - Gestor de promociones y configuraciones
+- **👩‍💻 Recepcionista** - Aplicadora de promociones en ventas
+- **👨‍💼 Cliente** - Beneficiario de promociones personalizadas
+- **📊 Sistema de Analytics** - Análisis automático de efectividad
+- **🤖 Motor de Recomendaciones** - IA para ofertas personalizadas
+
+### **📊 DIAGRAMA DE CASOS DE USO:**
+
+```mermaid
+graph TB
+    %% Actores
+    Marketing([👨‍💼 Gerente Marketing])
+    Admin([👨‍💼 Administrador])
+    Recepcionista([👩‍💻 Recepcionista])
+    Cliente([👨‍💼 Cliente])
+    SisAnalytics([📊 Sistema Analytics])
+    MotorRec([🤖 Motor Recomendaciones])
+    
+    %% Casos de Uso Principales
+    subgraph "Gestión de Promociones"
+        UC1[🎯 Crear Promoción]
+        UC2[📝 Configurar Campaña]
+        UC3[🔍 Segmentar Clientes]
+        UC4[📱 Enviar Notificaciones]
+        UC5[✅ Validar Promoción]
+        UC6[💳 Aplicar Descuento]
+        UC7[📊 Monitorear Uso]
+        UC8[⏰ Programar Activación]
+    end
+    
+    %% Casos de Uso de Marketing
+    subgraph "Marketing Inteligente"
+        UC9[🎯 Generar Ofertas Personalizadas]
+        UC10[📈 Analizar Comportamiento]
+        UC11[📊 Calcular ROI]
+        UC12[🔄 Optimizar Campañas]
+        UC13[📧 Marketing Automático]
+        UC14[📱 Notificaciones Push]
+        UC15[🎁 Programa Fidelización]
+    end
+    
+    %% Casos de Uso de Control
+    subgraph "Control y Análisis"
+        UC16[📊 Generar Reportes]
+        UC17[⚠️ Detectar Fraudes]
+        UC18[🔄 Sincronizar Datos]
+        UC19[📈 Medir Efectividad]
+        UC20[🎯 A/B Testing]
+    end
+    
+    %% Conexiones
+    Marketing --> UC1
+    Marketing --> UC2
+    Marketing --> UC3
+    Marketing --> UC8
+    Marketing --> UC11
+    Marketing --> UC12
+    Marketing --> UC16
+    Marketing --> UC19
+    Marketing --> UC20
+    
+    Admin --> UC1
+    Admin --> UC5
+    Admin --> UC7
+    Admin --> UC13
+    Admin --> UC15
+    Admin --> UC17
+    
+    Recepcionista --> UC5
+    Recepcionista --> UC6
+    
+    Cliente --> UC9
+    Cliente --> UC15
+    
+    SisAnalytics --> UC10
+    SisAnalytics --> UC11
+    SisAnalytics --> UC16
+    SisAnalytics --> UC18
+    SisAnalytics --> UC19
+    SisAnalytics --> UC20
+    
+    MotorRec --> UC9
+    MotorRec --> UC10
+    MotorRec --> UC12
+    MotorRec --> UC13
+    MotorRec --> UC14
+    
+    %% Relaciones Include/Extend
+    UC1 -.->|include| UC3
+    UC2 -.->|include| UC4
+    UC6 -.->|include| UC5
+    UC9 -.->|include| UC10
+    UC12 -.->|include| UC11
+    UC13 -.->|include| UC14
+    UC15 -.->|include| UC9
+    UC19 -.->|extend| UC20
+```
+
+### **📝 ESPECIFICACIONES DETALLADAS:**
+
+#### **🎯 UC1: Crear Promoción**
+- **Precondición:** Usuario autorizado con permisos de marketing
+- **Flujo Principal:**
+  1. Gerente accede al módulo de promociones
+  2. Define nombre y descripción de la promoción
+  3. Selecciona tipo de descuento (porcentaje, monto fijo, producto gratis)
+  4. Configura valor del descuento y condiciones
+  5. Establece fechas de inicio y fin
+  6. Define límites de uso (total y por cliente)
+  7. Especifica criterios de elegibilidad
+  8. Configura segmentación de clientes objetivo
+  9. Sistema valida configuración y activa promoción
+
+#### **🎯 UC9: Generar Ofertas Personalizadas**
+- **Precondición:** Cliente con historial de compras, IA entrenada
+- **Flujo Principal:**
+  1. Motor de IA analiza perfil del cliente
+  2. Evalúa historial de compras y comportamiento
+  3. Identifica patrones de consumo
+  4. Consulta productos/servicios relacionados
+  5. Calcula probabilidad de conversión
+  6. Genera ofertas personalizadas relevantes
+  7. Valida disponibilidad de promociones
+  8. Presenta ofertas en orden de relevancia
+  9. Registra interacción para aprendizaje
+
+#### **📊 UC19: Medir Efectividad**
+- **Precondición:** Promociones activas con datos de uso
+- **Flujo Principal:**
+  1. Sistema recopila métricas de uso en tiempo real
+  2. Calcula tasas de conversión por promoción
+  3. Analiza incremento en ventas generado
+  4. Mide ROI (Return on Investment) de campañas
+  5. Evalúa comportamiento de clientes post-promoción
+  6. Genera insights sobre segmentos más efectivos
+  7. Compara rendimiento vs objetivos establecidos
+  8. Crea recomendaciones de optimización
+
+### **⚙️ REGLAS DE NEGOCIO:**
+- **RN001:** Una promoción no puede tener descuento superior al 70% del valor original
+- **RN002:** Promociones de "Producto Gratis" requieren compra mínima definida
+- **RN003:** Un cliente no puede usar la misma promoción más veces que el límite establecido
+- **RN004:** Promociones conflictivas no pueden aplicarse simultáneamente
+- **RN005:** El sistema debe validar existencia de stock antes de aplicar promociones de producto
+- **RN006:** Promociones vencidas se desactivan automáticamente a las 23:59 del día final
+- **RN007:** Cambios en promociones activas requieren aprobación de supervisor
+
+---
+
 ## 📊 **CONSIDERACIONES TÉCNICAS Y MEJORES PRÁCTICAS**
 
+### **🧠 ALGORITMOS DE MARKETING INTELIGENTE:**
+
+#### **1. Motor de Recomendaciones:**
+```python
+# Algoritmo de filtrado colaborativo para ofertas personalizadas
+def generar_ofertas_personalizadas(cliente_id, limite=5):
+    # Obtener perfil del cliente
+    perfil = obtener_perfil_cliente(cliente_id)
+    historial = obtener_historial_compras(cliente_id)
+    
+    # Calcular similitud con otros clientes
+    clientes_similares = calcular_similitud_clientes(perfil)
+    
+    # Generar recomendaciones basadas en colaboración
+    productos_recomendados = filtrado_colaborativo(clientes_similares, historial)
+    
+    # Aplicar filtros de negocio
+    ofertas_validas = validar_ofertas(productos_recomendados, perfil)
+    
+    return ofertas_validas[:limite]
+```
+
+#### **2. Sistema de Puntuación de Clientes:**
+```php
+// Scoring dinámico para segmentación automática
+class ClienteScoring {
+    public function calcularScore(Cliente $cliente): float {
+        $frecuencia = $this->calcularFrecuenciaCompra($cliente);
+        $monetario = $this->calcularValorPromedio($cliente);
+        $recencia = $this->calcularDiasSinCompra($cliente);
+        $fidelidad = $this->calcularIndiceFidelidad($cliente);
+        
+        return ($frecuencia * 0.3) + ($monetario * 0.4) + 
+               ($recencia * 0.2) + ($fidelidad * 0.1);
+    }
+}
+```
+
+#### **3. A/B Testing Automático:**
+```php
+// Framework para pruebas automáticas de promociones
+enum VariantePromocion {
+    CONTROL = 'control';
+    VARIANTE_A = 'variante_a';  
+    VARIANTE_B = 'variante_b';
+}
+
+class ABTestManager {
+    public function asignarVariante(int $clienteId): VariantePromocion {
+        $hash = crc32($clienteId . config('ab_test.seed'));
+        return match($hash % 3) {
+            0 => VariantePromocion::CONTROL,
+            1 => VariantePromocion::VARIANTE_A,
+            default => VariantePromocion::VARIANTE_B
+        };
+    }
+}
+```
+
 ### **🔧 PATRONES DE IMPLEMENTACIÓN:**
+
+#### **4. Patrón Strategy para Tipos de Promoción:**
+```php
+// Estrategias flexibles para diferentes tipos de descuentos
+interface EstrategiaPromocion {
+    public function calcularDescuento(float $monto, array $items): float;
+    public function validarCondiciones(Cliente $cliente, array $items): bool;
+}
+
+class DescuentoPorcentaje implements EstrategiaPromocion {
+    private float $porcentaje;
+    
+    public function calcularDescuento(float $monto, array $items): float {
+        return $monto * ($this->porcentaje / 100);
+    }
+}
+
+class ProductoGratis implements EstrategiaPromocion {
+    public function calcularDescuento(float $monto, array $items): float {
+        return $this->obtenerValorProductoGratis($items);
+    }
+}
+```
+
+#### **5. Event Sourcing para Auditoría de Marketing:**
+```php
+// Registro completo de eventos para análisis posterior
+abstract class EventoMarketing {
+    public readonly DateTime $timestamp;
+    public readonly int $clienteId;
+    
+    abstract public function aplicar(EstadoCliente $estado): EstadoCliente;
+}
+
+class PromocionAplicada extends EventoMarketing {
+    public function __construct(
+        public readonly int $promocionId,
+        public readonly float $descuentoAplicado,
+        public readonly string $codigoVenta
+    ) {}
+}
+```
 
 #### **1. Patrón de Responsabilidad por Capas:**
 - **Controladores:** Gestión de lógica de presentación
@@ -528,9 +783,45 @@ StockBajo -> AlertarEncargado
 HistorialModificado -> RegistrarAuditoria
 ```
 
-### **🚀 OPTIMIZACIONES RECOMENDADAS:**
+### **� MÉTRICAS DE MARKETING EN TIEMPO REAL:**
+
+#### **1. KPIs Automáticos:**
+```sql
+-- Vista materializada para métricas en tiempo real
+CREATE MATERIALIZED VIEW marketing_metrics AS
+SELECT 
+    p.id as promocion_id,
+    p.nombre,
+    COUNT(up.id) as usos_totales,
+    COUNT(DISTINCT up.cliente_id) as clientes_unicos,
+    SUM(v.total) as ingresos_generados,
+    AVG(v.total) as venta_promedio,
+    (SUM(v.total) - SUM(up.descuento_aplicado)) as roi_estimado
+FROM promociones p
+LEFT JOIN uso_promociones up ON p.id = up.promocion_id
+LEFT JOIN ventas v ON up.venta_id = v.id
+WHERE p.activa = true
+GROUP BY p.id, p.nombre;
+```
+
+#### **2. Dashboard de Conversión:**
+- **Tasa de Conversión**: Clientes que usan promociones vs total contactado
+- **Lifetime Value**: Valor promedio de cliente después de primera promoción
+- **Churn Reduction**: Reducción en tasa de abandono por campañas de retención
+- **Cross-selling Success**: Efectividad de promociones para venta cruzada
+
+### **�🚀 OPTIMIZACIONES RECOMENDADAS:**
+
+#### **4. Machine Learning para Predicciones:**
+- **Modelo de Propensión**: Predicción de probabilidad de compra por cliente
+- **Optimización de Precios**: Ajuste dinámico de descuentos según demanda
+- **Segmentación Automática**: Clustering de clientes por comportamiento
+- **Detección de Patrones**: Identificación automática de oportunidades de venta
 
 #### **1. Cache de Consultas Frecuentes:**
+- Ofertas personalizadas por cliente
+- Métricas de promociones activas
+- Segmentaciones de clientes frecuentes
 - Disponibilidad de horarios veterinarios
 - Listado de servicios activos
 - Información básica de mascotas
@@ -539,6 +830,9 @@ HistorialModificado -> RegistrarAuditoria
 #### **2. Índices de Base de Datos:**
 ```sql
 -- Índices críticos para rendimiento
+INDEX idx_promociones_fechas_activa (fecha_inicio, fecha_fin, activa)
+INDEX idx_uso_promociones_cliente_fecha (cliente_id, created_at)
+INDEX idx_clientes_score_segmento (score_fidelidad, segmento_marketing)
 INDEX idx_citas_fecha_veterinario (fecha_hora, empleado_id)
 INDEX idx_historiales_mascota_fecha (mascota_id, created_at)
 INDEX idx_usuarios_rol_activo (role_id, activo)
@@ -546,6 +840,9 @@ INDEX idx_productos_stock_categoria (stock_actual, categoria_id)
 ```
 
 #### **3. Validaciones Asíncronas:**
+- Cálculo de ofertas personalizadas en background
+- Procesamiento de métricas de marketing
+- Generación de reportes de efectividad
 - Verificación de stock en tiempo real
 - Validación de horarios disponibles
 - Comprobación de permisos complejos
@@ -553,6 +850,9 @@ INDEX idx_productos_stock_categoria (stock_actual, categoria_id)
 ### **📱 INTEGRACIÓN CON SISTEMAS EXTERNOS:**
 
 #### **1. APIs de Terceros:**
+- **CRM Integration**: HubSpot, Salesforce para gestión de leads
+- **Email Marketing**: Mailchimp, SendGrid para campañas automáticas
+- **Analytics**: Google Analytics, Mixpanel para seguimiento avanzado
 - **Sistema de Pagos:** PayPal, Stripe para transacciones
 - **Notificaciones:** Twilio para SMS, SendGrid para emails
 - **Facturación:** SRI para facturas electrónicas
@@ -668,7 +968,7 @@ Las contribuciones son bienvenidas. Por favor, lee las [guías de contribución]
 
 ### **✅ DOCUMENTACIÓN COMPLETADA:**
 
-**🎯 OBJETIVO LOGRADO:** Se han documentado 4 guías completas de diagramas de casos de uso para los funcionamientos internos más complejos del sistema ZoofiPets.
+**🎯 OBJETIVO LOGRADO:** Se han documentado 5 guías completas de diagramas de casos de uso para los funcionamientos internos más complejos del sistema ZoofiPets.
 
 ### **📊 ENTREGABLES:**
 
@@ -676,6 +976,7 @@ Las contribuciones son bienvenidas. Por favor, lee las [guías de contribución]
 2. **📊 Gestión de Historiales Médicos** - 15 casos de uso con auditoría completa  
 3. **👥 Gestión de Roles y Permisos** - 16 casos de uso de seguridad multinivel
 4. **💰 Gestión de Inventario y Ventas** - 19 casos de uso financieros integrados
+5. **🎯 Gestión de Promociones y Marketing** - 20 casos de uso con IA integrada
 
 ### **🔧 COMPONENTES INCLUIDOS:**
 - ✅ Diagramas UML completos con notación estándar
@@ -683,14 +984,18 @@ Las contribuciones son bienvenidas. Por favor, lee las [guías de contribución]
 - ✅ Reglas de negocio específicas por módulo
 - ✅ Consideraciones técnicas de implementación
 - ✅ Patrones de diseño recomendados
+- ✅ Algoritmos de IA para marketing inteligente
 - ✅ Optimizaciones de rendimiento
 - ✅ Medidas de seguridad integradas
 
 ### **💡 VALOR AGREGADO:**
 - **Trazabilidad completa** de procesos críticos
 - **Validaciones robustas** en múltiples capas
+- **Marketing inteligente** con IA y machine learning
+- **Segmentación automática** de clientes
+- **Optimización continua** mediante A/B testing
 - **Escalabilidad** para crecimiento futuro
 - **Seguridad** de nivel empresarial
 - **Integración** con sistemas externos
 
-Esta documentación proporciona la base técnica completa para implementar, mantener y escalar los procesos más complejos del sistema veterinario ZoofiPets de manera profesional y eficiente.
+Esta documentación proporciona la base técnica completa para implementar, mantener y escalar los procesos más complejos del sistema veterinario ZoofiPets de manera profesional y eficiente, incluyendo capacidades avanzadas de marketing digital e inteligencia artificial.
